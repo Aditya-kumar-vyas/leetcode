@@ -21,27 +21,39 @@ class Solution
 	//Function to return list containing vertices in Topological order. 
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    stack<int> st;
-	    int vis[V];
-	    memset(vis,0,sizeof(vis));
-	    
-	    for(int i =0 ; i<V ; i++)
+	    int indegre[V];
+	    memset(indegre,0,sizeof(indegre));
+	    for(int i =0 ; i<V ;i++)
 	    {
-	         if(vis[i]==0)
+	         for(auto it : adj[i])
 	         {
-	             dfs(i,vis,adj,st);
+	             indegre[it]++;
 	         }
 	    }
-	    vector<int> ans;
-	    while(!st.empty())
+	    queue<int> q;
+	    for(int i =0 ; i<V ; i++)
 	    {
-	         int value = st.top();
-	         ans.push_back(value);
-	         st.pop();
+	         if(indegre[i]==0)
+	         {
+	             q.push(i);
+	         }
 	    }
-	   
-	    return ans;
-	    
+	    vector<int> res;
+	    while(!q.empty())
+	    {
+	        int node = q.front();
+	        q.pop();
+	        res.push_back(node);
+	        for(auto it : adj[node])
+	        {
+	             indegre[it]--;
+	             if(indegre[it]==0)
+	             {
+	                 q.push(it);
+	             }
+	        }
+	    }
+	    return res;
 	    
 	}
 };
