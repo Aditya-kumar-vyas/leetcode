@@ -5,7 +5,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution
 {
-    void dfs(int node , int vis[] , vector<int> adj[] , stack<int>&st)
+    int dfs(int node , int vis[] , vector<int> adj[] , stack<int>&st)
     {
          vis[node]=1;
          for(auto it : adj[node])
